@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.myjava.javatest">
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <application
+        android:name=".MyApp"
+        android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".TestActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".FirstActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".hello.OtherActivity" />
+        <activity
+            android:name=".kAc"
+            android:process=":fdg" />
+
+        <service
+            android:name=".MyService"
+            android:process=":fdg" />
+
+        <receiver android:name=".MyBroad">
+            <intent-filter>
+                <action android:name="klio" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

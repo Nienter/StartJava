@@ -1,0 +1,5 @@
+rootProject.name='StForJava'
+include ':app'
+include ':lib'
+include ':lib2'
+include ':lib3'

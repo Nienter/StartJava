@@ -1,0 +1,66 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation files('libs/commons-collections4-4.0.jar')
+    implementation 'com.google.firebase:firebase-crashlytics-buildtools:2.5.2'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+
+sourceCompatibility = "8"
+targetCompatibility = "8"
+//android{
+//    lintOptions {
+//        abortOnError false
+//    }
+//}
+//
+//
+//def _BASENAME = "rubbish";
+//def _VERSION = "_v1.0";
+//def _DestinationPath = "build/outputs/jar"; //生成jar包的位置
+//def zipFile = file('build/intermediates/aar_main_jar/debug/classes.jar'); //待打包文件位置
+//
+//task deleteBuild(type:Delete){
+//    delete _DestinationPath + _BASENAME + _VERSION + ".jar"
+//}
+//
+//task makeJar(type:Jar){
+//    from zipTree(zipFile)
+//    baseName = _BASENAME + _VERSION
+//    destinationDir = file(_DestinationPath)
+//}
+//
+//makeJar.dependsOn(deleteBuild, build)
+task makeJar(type: Copy) {
+    delete 'build/libs/ko.jar' //删除已经存在的jar包，如果有的话
+    from('build/intermediates/bundles/default/')//从该目录下加载要打包的文件，注意文件夹名称有可能为default，也可能是release，自己看一下
+    into('build/libs/')//jar包的保存目录
+    include('classes.jar')//设置过滤，只打包classes文件
+    rename('classes.jar', 'ko.jar')//重命名，SlidingMenuHbh.jar 名字自己随便起
+}
+makeJar.dependsOn(build)
+repositories {
+    mavenCentral()
+}
+buildscript {
+    ext.kotlin_version = '1.5.0'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
